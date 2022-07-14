@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:food_ordering_app/admin/screens/add_product_screen.dart';
+import 'package:food_ordering_app/admin/screens/admin_screen.dart';
 import 'package:food_ordering_app/constants/Global_variables.dart';
 import 'package:food_ordering_app/providers/user_provider.dart';
 import 'package:food_ordering_app/screens/auth_screen.dart';
-import 'package:food_ordering_app/screens/home_screen.dart';
+import 'package:food_ordering_app/screens/categories_screen.dart';
+import 'package:food_ordering_app/screens/my_orders.dart';
 import 'package:food_ordering_app/service/auth_service.dart';
+import 'package:food_ordering_app/widgets/bottom_bar.dart';
 import 'package:provider/provider.dart';
 import 'routers/router.dart';
 
@@ -37,6 +41,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Food Ordering App',
       theme: ThemeData(
         scaffoldBackgroundColor: GlobalVariables.backgroundColor,
@@ -52,8 +57,15 @@ class _MyAppState extends State<MyApp> {
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? const HomeScreen()
+          ? Provider.of<UserProvider>(context).user.type == 'user'
+              ? const BottomBar()
+              : const AdminScreen()
           : const AuthScreen(),
+      routes: {
+        MyOrders.routeName: (ctx) => const MyOrders(),
+        CatgoriesScreen.routeName: (ctx) => const CatgoriesScreen(),
+        AddProductScreen.routeName: (ctx) => const AddProductScreen(),
+      },
     );
   }
 }

@@ -8,15 +8,17 @@ class User {
   final String address;
   final String type;
   final String token;
-
-  User(
-      {required this.id,
-      required this.email,
-      required this.password,
-      required this.address,
-      required this.type,
-      required this.token,
-      required this.name});
+  final String whichShop;
+  User({
+    required this.id,
+    required this.email,
+    required this.password,
+    required this.address,
+    required this.type,
+    required this.token,
+    required this.name,
+    required this.whichShop,
+  });
 
   Map<String, dynamic> toMap() {
     return {
@@ -39,6 +41,7 @@ class User {
       address: map['address'] ?? '',
       type: map['type'] ?? '',
       token: map['token'] ?? '',
+      whichShop: map['whichShop'] ?? '',
     );
   }
 

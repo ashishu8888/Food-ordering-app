@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:food_ordering_app/providers/user_provider.dart';
 import 'package:food_ordering_app/screens/home_screen.dart';
+import 'package:food_ordering_app/widgets/bottom_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:food_ordering_app/constants/Global_variables.dart';
@@ -20,6 +21,7 @@ class AuthService {
       required password}) async {
     try {
       User user = User(
+          whichShop: 'whichShop',
           id: 'id',
           email: email,
           password: password,
@@ -73,7 +75,7 @@ class AuthService {
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
           Navigator.pushNamedAndRemoveUntil(
             context,
-            HomeScreen.routeName,
+            BottomBar.routeName,
             (route) => false,
           );
         },
