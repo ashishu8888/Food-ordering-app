@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_ordering_app/admin/screens/add_product_screen.dart';
+import 'package:food_ordering_app/admin/screens/add_shop_screen.dart';
 import 'package:food_ordering_app/admin/services/admin_services.dart';
 import 'package:food_ordering_app/constants/Global_variables.dart';
 import 'package:food_ordering_app/models/product.dart';
@@ -34,6 +35,17 @@ class _PostScreenState extends State<PostScreen> {
     setState(() {});
   }
 
+  void deleteProduct(Product product, int index) {
+    adminServices.deleteProduct(
+      context: context,
+      product: product,
+      onSuccess: () {
+        products!.removeAt(index);
+        setState(() {});
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return products == null
@@ -41,6 +53,16 @@ class _PostScreenState extends State<PostScreen> {
         : Scaffold(
             appBar: AppBar(
               title: const Text('Hello, Admin'),
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(AddShopScreen.routeName);
+                    },
+                    icon: const Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ))
+              ],
             ),
             body: GridView.builder(
                 itemCount: products!.length,
@@ -74,9 +96,11 @@ class _PostScreenState extends State<PostScreen> {
                               ),
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () =>
+                                  deleteProduct(productData, index),
                               icon: const Icon(
                                 Icons.delete_outline,
+                                color: Colors.red,
                               ),
                             ),
                           ],

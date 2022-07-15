@@ -1,13 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:food_ordering_app/constants/Global_variables.dart';
+import 'package:food_ordering_app/constants/utils.dart';
 import 'package:food_ordering_app/providers/user_provider.dart';
+import 'package:food_ordering_app/screens/auth_screen.dart';
 import 'package:food_ordering_app/screens/my_orders.dart';
 import 'package:food_ordering_app/widgets/accounts_tile.dart';
 import 'package:food_ordering_app/widgets/single_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountScreen extends StatelessWidget {
   AccountScreen({Key? key}) : super(key: key);
+  void logOut(BuildContext context) async {
+    try {
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      await sharedPreferences.setString('x-auth-token', '');
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        AuthScreen.routeName,
+        (route) => false,
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
   List orders = [
     "https://images.unsplash.com/photo-1656859617812-1f8a93f77f60?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1964&q=80",
     "https://images.unsplash.com/photo-1656861085999-75a6a0402c29?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
@@ -65,7 +83,7 @@ class AccountScreen extends StatelessWidget {
                 name: 'Log out',
                 iconType: const Icon(Icons.logout),
                 onTap: () {
-                  Navigator.of(context).pushNamed(MyOrders.routeName);
+                  logOut(context);
                 }),
             Row(
               children: [
