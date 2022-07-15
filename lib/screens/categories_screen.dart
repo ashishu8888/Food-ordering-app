@@ -1,69 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:food_ordering_app/admin/services/admin_services.dart';
 import 'package:food_ordering_app/constants/Global_variables.dart';
+import 'package:food_ordering_app/models/shopDetail.dart';
+import 'package:food_ordering_app/providers/shop_provider.dart';
+import 'package:food_ordering_app/providers/user_provider.dart';
+import 'package:food_ordering_app/screens/product_screen.dart';
+import 'package:food_ordering_app/widgets/categoryTile.dart';
+import 'package:food_ordering_app/widgets/loader.dart';
+import 'package:provider/provider.dart';
 
-class CatgoriesScreen extends StatelessWidget {
-  static const String routeName = "/categories-screen";
+import '../models/user.dart';
+
+class CatgoriesScreen extends StatefulWidget {
+  static const routeName = "/categories-screen";
   const CatgoriesScreen({Key? key}) : super(key: key);
+
+  @override
+  State<CatgoriesScreen> createState() => _CatgoriesScreenState();
+}
+
+class _CatgoriesScreenState extends State<CatgoriesScreen> {
+  User? user;
+  final AdminServices adminServices = AdminServices();
+  Shop? shop;
+  List<String>? tags;
+  void navigateToCategoryProductScreen(BuildContext context, String category) {
+    Navigator.pushNamed(
+      context,
+      CategoryProductScreen.routeName,
+      arguments: category,
+    );
+  }
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    user = Provider.of<UserProvider>(context, listen: false).user;
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    shop = Provider.of<ShopProvider>(
+      context,
+    ).shop;
+    tags = shop!.tags;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: GlobalVariables.selectedNavBarColor,
-        title: const Text("Catogries"),
-      ),
-      body: Column(
-        children: [
-          GestureDetector(
-            onTap: () {},
-            child: Container(
-              alignment: Alignment.center,
-              child: const Card(
-                child: Text(
-                  'category 1',
-                  style: TextStyle(fontSize: 30),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          GestureDetector(
-            onTap: () {},
-            child: const Card(
-              child: Text(
-                'category 2',
-                style: TextStyle(fontSize: 30),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          GestureDetector(
-            onTap: () {},
-            child: const Card(
-              child: Text(
-                'category 3',
-                style: TextStyle(fontSize: 30),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          GestureDetector(
-            onTap: () {},
-            child: const Card(
-              child: Text(
-                'category 4',
-                style: TextStyle(fontSize: 30),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+        appBar: AppBar(
+          backgroundColor: GlobalVariables.selectedNavBarColor,
+          title: const Text("Catogries"),
+        ),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          child: ListView.builder(
+              itemCount: tags!.length,
+              itemBuilder: (context, index) {
+                return CategoryTile(category: tags![index]);
+              }),
+        ));
   }
 }

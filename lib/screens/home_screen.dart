@@ -3,6 +3,7 @@ import 'package:food_ordering_app/admin/services/admin_services.dart';
 import 'package:food_ordering_app/constants/Global_variables.dart';
 import 'package:food_ordering_app/models/shopDetail.dart';
 import 'package:food_ordering_app/models/user.dart';
+import 'package:food_ordering_app/providers/shop_provider.dart';
 import 'package:food_ordering_app/providers/user_provider.dart';
 import 'package:food_ordering_app/screens/categories_screen.dart';
 import 'package:food_ordering_app/widgets/loader.dart';
@@ -100,29 +101,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            body: Padding(
-              padding: const EdgeInsets.only(right: 16, left: 16),
-              child: Container(
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: shops!.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: ShopTile(
-                        ShopImageUrl: shops![index].imageUrl,
-                        shopName: shops![index].shopName,
-                        avgPrice: shops![index].avgPrice,
-                        tags: shops![index].tags,
-                        onTap: () {
-                          Navigator.of(context)
-                              .pushNamed(CatgoriesScreen.routeName);
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ),
+            body: ListView.builder(
+              shrinkWrap: true,
+              physics: const BouncingScrollPhysics(),
+              itemCount: shops!.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: ShopTile(
+                    ShopImageUrl: shops![index].imageUrl,
+                    shopName: shops![index].shopName,
+                    avgPrice: shops![index].avgPrice,
+                    tags: shops![index].tags,
+                    onTap: () {
+                      Provider.of<ShopProvider>(context, listen: false)
+                          .setShopFromModel(shops![index]);
+                      Navigator.of(context)
+                          .pushNamed(CatgoriesScreen.routeName);
+                    },
+                  ),
+                );
+              },
             ),
           );
   }

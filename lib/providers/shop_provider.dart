@@ -13,12 +13,12 @@ class ShopProvider extends ChangeNotifier {
 
   Shop get shop => _shop;
 
-  void setUser(String shop) {
+  void setShop(String shop) {
     _shop = Shop.fromJson(shop);
     notifyListeners();
   }
 
-  void setUserFromModel(Shop shop) {
+  void setShopFromModel(Shop shop) {
     _shop = shop;
     notifyListeners();
   }

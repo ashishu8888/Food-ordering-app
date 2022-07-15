@@ -3,6 +3,7 @@ import 'package:food_ordering_app/admin/screens/add_product_screen.dart';
 import 'package:food_ordering_app/admin/screens/add_shop_screen.dart';
 import 'package:food_ordering_app/admin/screens/admin_screen.dart';
 import 'package:food_ordering_app/constants/Global_variables.dart';
+import 'package:food_ordering_app/providers/shop_provider.dart';
 import 'package:food_ordering_app/providers/user_provider.dart';
 import 'package:food_ordering_app/screens/auth_screen.dart';
 import 'package:food_ordering_app/screens/categories_screen.dart';
@@ -17,6 +18,9 @@ void main() {
     providers: [
       ChangeNotifierProvider(
         create: (context) => UserProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => ShopProvider(),
       )
     ],
     child: const MyApp(),

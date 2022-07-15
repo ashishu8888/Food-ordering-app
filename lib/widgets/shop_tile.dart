@@ -8,14 +8,14 @@ class ShopTile extends StatelessWidget {
   final double avgPrice;
   final List<String> tags;
   final VoidCallback onTap;
-  const ShopTile(
-      {Key? key,
-      required this.ShopImageUrl,
-      required this.shopName,
-      required this.avgPrice,
-      required this.tags,
-      required this.onTap})
-      : super(key: key);
+  const ShopTile({
+    Key? key,
+    required this.ShopImageUrl,
+    required this.shopName,
+    required this.avgPrice,
+    required this.tags,
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
