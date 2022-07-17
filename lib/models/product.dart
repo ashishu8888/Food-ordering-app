@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:food_ordering_app/models/ratings.dart';
+
 class Product {
   final String whichShop;
   final String name;
@@ -9,7 +11,7 @@ class Product {
   final String category;
   final double price;
   final String? id;
-  //final List<Rating>? rating;
+  final List<Rating>? rating;
   Product({
     required this.whichShop,
     required this.name,
@@ -19,7 +21,7 @@ class Product {
     required this.category,
     required this.price,
     this.id,
-    //this.rating,
+    this.rating,
   });
 
   Map<String, dynamic> toMap() {

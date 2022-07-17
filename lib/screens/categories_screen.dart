@@ -4,11 +4,9 @@ import 'package:food_ordering_app/constants/Global_variables.dart';
 import 'package:food_ordering_app/models/shopDetail.dart';
 import 'package:food_ordering_app/providers/shop_provider.dart';
 import 'package:food_ordering_app/providers/user_provider.dart';
-import 'package:food_ordering_app/screens/product_screen.dart';
+import 'package:food_ordering_app/screens/category_product_screen.dart';
 import 'package:food_ordering_app/widgets/categoryTile.dart';
-import 'package:food_ordering_app/widgets/loader.dart';
 import 'package:provider/provider.dart';
-
 import '../models/user.dart';
 
 class CatgoriesScreen extends StatefulWidget {
@@ -60,7 +58,12 @@ class _CatgoriesScreenState extends State<CatgoriesScreen> {
           child: ListView.builder(
               itemCount: tags!.length,
               itemBuilder: (context, index) {
-                return CategoryTile(category: tags![index]);
+                return CategoryTile(
+                  category: tags![index],
+                  onTap: () {
+                    navigateToCategoryProductScreen(context, tags![index]);
+                  },
+                );
               }),
         ));
   }

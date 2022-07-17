@@ -6,6 +6,7 @@ import 'package:food_ordering_app/models/user.dart';
 import 'package:food_ordering_app/providers/shop_provider.dart';
 import 'package:food_ordering_app/providers/user_provider.dart';
 import 'package:food_ordering_app/screens/categories_screen.dart';
+import 'package:food_ordering_app/search/search_screen.dart';
 import 'package:food_ordering_app/widgets/loader.dart';
 import 'package:food_ordering_app/widgets/shop_tile.dart';
 import 'package:provider/provider.dart';
@@ -22,13 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   User? user;
   final AdminServices adminServices = AdminServices();
   List<Shop>? shops;
-  List<String> tags = [
-    "#lunch",
-    "#breakfast",
-    "#fastfood",
-    "#sweets",
-    "#muncies",
-  ];
+  List<String> tags = [];
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -39,6 +34,10 @@ class _HomeScreenState extends State<HomeScreen> {
   fetchAllShops() async {
     shops = await adminServices.fetchAllShops(context);
     setState(() {});
+  }
+
+  void navigateToSearchScreen(String query) {
+    Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
 
   @override
@@ -57,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(7),
                     elevation: 1,
                     child: TextFormField(
-                      onFieldSubmitted: null,
+                      onFieldSubmitted: navigateToSearchScreen,
                       decoration: InputDecoration(
                         prefixIcon: InkWell(
                           onTap: () {},
@@ -101,27 +100,30 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            body: ListView.builder(
-              shrinkWrap: true,
-              physics: const BouncingScrollPhysics(),
-              itemCount: shops!.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: ShopTile(
-                    ShopImageUrl: shops![index].imageUrl,
-                    shopName: shops![index].shopName,
-                    avgPrice: shops![index].avgPrice,
-                    tags: shops![index].tags,
-                    onTap: () {
-                      Provider.of<ShopProvider>(context, listen: false)
-                          .setShopFromModel(shops![index]);
-                      Navigator.of(context)
-                          .pushNamed(CatgoriesScreen.routeName);
-                    },
-                  ),
-                );
-              },
+            body: Container(
+              height: MediaQuery.of(context).size.height * 0.8,
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                itemCount: shops!.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: ShopTile(
+                      ShopImageUrl: shops![index].imageUrl,
+                      shopName: shops![index].shopName,
+                      avgPrice: shops![index].avgPrice,
+                      tags: shops![index].tags,
+                      onTap: () {
+                        Provider.of<ShopProvider>(context, listen: false)
+                            .setShopFromModel(shops![index]);
+                        Navigator.of(context)
+                            .pushNamed(CatgoriesScreen.routeName);
+                      },
+                    ),
+                  );
+                },
+              ),
             ),
           );
   }
