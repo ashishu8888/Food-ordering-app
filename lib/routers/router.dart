@@ -5,7 +5,6 @@ import 'package:food_ordering_app/screens/auth_screen.dart';
 import 'package:food_ordering_app/screens/categories_screen.dart';
 import 'package:food_ordering_app/screens/home_screen.dart';
 import 'package:food_ordering_app/screens/category_product_screen.dart';
-import 'package:food_ordering_app/screens/product_detail_screen.dart';
 import 'package:food_ordering_app/search/search_screen.dart';
 import 'package:food_ordering_app/widgets/bottom_bar.dart';
 
@@ -47,15 +46,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
               searchQuery: searchQuery,
             );
           });
-    case ProductDetailScreen.routeName:
-      var product = routeSettings.arguments as Product;
-      return MaterialPageRoute(
-          settings: routeSettings,
-          builder: (_) {
-            return ProductDetailScreen(
-              product: product,
-            );
-          });
+
     default:
       return MaterialPageRoute(
         settings: routeSettings,

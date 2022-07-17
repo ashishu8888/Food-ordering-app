@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_ordering_app/constants/Global_variables.dart';
 import 'package:food_ordering_app/models/product.dart';
 import 'package:food_ordering_app/providers/shop_provider.dart';
+import 'package:food_ordering_app/service/product_services.dart';
 import 'package:food_ordering_app/service/userServices.dart';
 import 'package:food_ordering_app/widgets/loader.dart';
 import 'package:food_ordering_app/widgets/productTile.dart';

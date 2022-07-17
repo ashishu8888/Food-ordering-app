@@ -19,6 +19,7 @@ class _CategoryTileState extends State<CategoryTile> {
 
   HomeServices homeServices = HomeServices();
 
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     fetchCategoryProduct();
@@ -37,39 +38,42 @@ class _CategoryTileState extends State<CategoryTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.all(20.0),
-        height: 150,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: productList == null || productList!.length == 0
-                    ? const Text('not available')
-                    : Image.network(
-                        productList![0].images[0],
-                        fit: BoxFit.cover,
-                      ),
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: Container(
+          padding: const EdgeInsets.all(20.0),
+          height: 150,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: productList == null || productList!.isEmpty
+                      ? const Text('not available')
+                      : Image.network(
+                          productList![0].images[0],
+                          fit: BoxFit.cover,
+                        ),
+                ),
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: 120,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [
-                      Colors.black.withOpacity(0.7),
-                      Colors.transparent
-                    ])),
-              ),
-            )
-          ],
-        ));
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: 120,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          colors: [
+                        Colors.black.withOpacity(0.7),
+                        Colors.transparent
+                      ])),
+                ),
+              )
+            ],
+          )),
+    );
   }
 }
