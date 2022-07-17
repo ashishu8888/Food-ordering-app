@@ -37,39 +37,57 @@ class _CategoryTileState extends State<CategoryTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.all(20.0),
-        height: 150,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: productList == null || productList!.length == 0
-                    ? const Text('not available')
-                    : Image.network(
-                        productList![0].images[0],
-                        fit: BoxFit.cover,
-                      ),
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: Container(
+          padding: const EdgeInsets.all(20.0),
+          height: 150,
+          child: Stack(
+            children: [
+              Positioned.fill(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: productList == null || productList!.length == 0
+                      ? Image.network(
+                          'https://cdn.dribbble.com/users/856748/screenshots/3378756/media/2567526420085dc9c835c2cd8a52bffc.gif',
+                          fit: BoxFit.cover,
+                        )
+                      : Image.network(
+                          productList![0].images[0],
+                          fit: BoxFit.cover,
+                        ),
+                ),
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: 120,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [
-                      Colors.black.withOpacity(0.7),
-                      Colors.transparent
-                    ])),
-              ),
-            )
-          ],
-        ));
+              Positioned(
+                right: 0,
+                left: 0,
+                bottom: 0,
+                child: Container(
+                  height: 120,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      widget.category,
+                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    ),
+                  ),
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20),
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20)),
+                      gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          colors: [
+                            Colors.black.withOpacity(0.7),
+                            Colors.transparent
+                          ])),
+                ),
+              )
+            ],
+          )),
+    );
   }
 }
