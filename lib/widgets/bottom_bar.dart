@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:food_ordering_app/constants/Global_variables.dart';
 import 'package:badges/badges.dart';
+import 'package:food_ordering_app/providers/user_provider.dart';
 import 'package:food_ordering_app/screens/account_screen.dart';
 import 'package:food_ordering_app/screens/home_screen.dart';
+import 'package:provider/provider.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({Key? key}) : super(key: key);
@@ -32,6 +34,7 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
+    final userCartLen = context.watch<UserProvider>().user.cart.length;
     return Scaffold(
       body: pages[_page],
       bottomNavigationBar: BottomNavigationBar(
@@ -96,7 +99,7 @@ class _BottomBarState extends State<BottomBar> {
               ),
               child: Badge(
                 elevation: 5,
-                badgeContent: Text(2.toString()),
+                badgeContent: Text(userCartLen.toString()),
                 badgeColor: Colors.green,
                 child: const Icon(
                   Icons.shopping_cart_outlined,

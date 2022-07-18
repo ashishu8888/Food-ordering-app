@@ -20,7 +20,7 @@ class CategoryProductScreen extends StatefulWidget {
 
 class _ProductScreenState extends State<CategoryProductScreen> {
   List<Product>? productList;
-  HomeServices homeServices = HomeServices();
+  UserServices homeServices = UserServices();
 
   fetchCategoryProduct() async {
     var shop = Provider.of<ShopProvider>(context).shop;

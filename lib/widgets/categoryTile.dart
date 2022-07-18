@@ -17,7 +17,7 @@ class CategoryTile extends StatefulWidget {
 class _CategoryTileState extends State<CategoryTile> {
   List<Product>? productList;
 
-  HomeServices homeServices = HomeServices();
+  UserServices homeServices = UserServices();
 
   @override
   void didChangeDependencies() {

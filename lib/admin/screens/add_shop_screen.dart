@@ -185,6 +185,7 @@ class _AddProductScreenState extends State<AddShopScreen> {
                 CustomButton(
                   text: 'Add',
                   onTap: () {
+                    //user.whichShop = shopNameController.text;
                     createShop();
                   },
                 ),

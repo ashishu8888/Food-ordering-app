@@ -33,8 +33,8 @@ class Product {
       'category': category,
       'price': price,
       'id': id,
-      'whichShop': whichShop
-      //   'rating': rating,
+      'whichShop': whichShop,
+      'rating': rating,
     };
   }
 
@@ -48,13 +48,13 @@ class Product {
       price: map['price']?.toDouble() ?? 0.0,
       id: map['_id'],
       whichShop: map['whichShop'] ?? '',
-      // rating: map['ratings'] != null
-      //     ? List<Rating>.from(
-      //         map['ratings']?.map(
-      //           (x) => Rating.fromMap(x),
-      //         ),
-      //       )
-      //     : null,
+      rating: map['ratings'] != null
+          ? List<Rating>.from(
+              map['ratings']?.map(
+                (x) => Rating.fromMap(x),
+              ),
+            )
+          : null,
     );
   }
 

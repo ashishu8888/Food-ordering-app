@@ -3,12 +3,15 @@ import 'package:food_ordering_app/admin/screens/add_product_screen.dart';
 import 'package:food_ordering_app/admin/screens/add_shop_screen.dart';
 import 'package:food_ordering_app/admin/services/admin_services.dart';
 import 'package:food_ordering_app/constants/Global_variables.dart';
+import 'package:food_ordering_app/constants/utils.dart';
 import 'package:food_ordering_app/models/product.dart';
 import 'package:food_ordering_app/models/user.dart';
 import 'package:food_ordering_app/providers/user_provider.dart';
+import 'package:food_ordering_app/screens/auth_screen.dart';
 import 'package:food_ordering_app/widgets/loader.dart';
 import 'package:food_ordering_app/widgets/single_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({Key? key}) : super(key: key);
@@ -46,6 +49,21 @@ class _PostScreenState extends State<PostScreen> {
     );
   }
 
+  void logOut(BuildContext context) async {
+    try {
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      await sharedPreferences.setString('x-auth-token', '');
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        AuthScreen.routeName,
+        (route) => false,
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return products == null
@@ -60,6 +78,14 @@ class _PostScreenState extends State<PostScreen> {
                     },
                     icon: const Icon(
                       Icons.add,
+                      color: Colors.white,
+                    )),
+                IconButton(
+                    onPressed: () {
+                      logOut(context);
+                    },
+                    icon: const Icon(
+                      Icons.logout,
                       color: Colors.white,
                     ))
               ],

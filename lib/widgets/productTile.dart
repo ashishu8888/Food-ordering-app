@@ -2,25 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:food_ordering_app/models/product.dart';
 import 'package:food_ordering_app/service/product_services.dart';
+import 'package:food_ordering_app/service/userServices.dart';
 import 'package:food_ordering_app/widgets/stars.dart';
 
-class ProductTile extends StatelessWidget {
-  final ProductServices productServices = ProductServices();
+class ProductTile extends StatefulWidget {
   final Product product;
   ProductTile({Key? key, required this.product}) : super(key: key);
+
+  @override
+  State<ProductTile> createState() => _ProductTileState();
+}
+
+class _ProductTileState extends State<ProductTile> {
+  final ProductServices productServices = ProductServices();
+  final UserServices userServices = UserServices();
+  void addToCart() {
+    userServices.addToCart(
+      context: context,
+      product: widget.product,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     double totalRating = 0;
     double avgRating = 0;
 
-    if (product.rating != null) {
-      for (int i = 0; i < product.rating!.length; i++) {
-        totalRating += product.rating![i].rating;
+    if (widget.product.rating != null) {
+      for (int i = 0; i < widget.product.rating!.length; i++) {
+        totalRating += widget.product.rating![i].rating;
       }
 
       if (totalRating != 0) {
-        avgRating = totalRating / product.rating!.length;
+        avgRating = totalRating / widget.product.rating!.length;
       }
     }
     return Column(
@@ -37,23 +51,11 @@ class ProductTile extends StatelessWidget {
                 Expanded(
                   child: Container(
                     child: Image.network(
-                      product.images[0],
+                      widget.product.images[0],
                       fit: BoxFit.fitWidth,
                     ),
                   ),
                 ),
-                // Container(
-                //   child: item.fav
-                //       ? Icon(
-                //           Icons.favorite,
-                //           size: 20.0,
-                //           color: Colors.red,
-                //         )
-                //       : Icon(
-                //           Icons.favorite_border,
-                //           size: 20.0,
-                //         ),
-                // )
               ],
             ),
           ),
@@ -64,9 +66,9 @@ class ProductTile extends StatelessWidget {
         Row(
           children: [
             Padding(
-              padding: EdgeInsets.only(left: 10.0),
+              padding: const EdgeInsets.only(left: 10.0),
               child: Text(
-                "${product.name}",
+                "${widget.product.name}",
                 style: const TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 15.0,
@@ -75,7 +77,10 @@ class ProductTile extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.shopping_cart))
+            IconButton(
+              onPressed: addToCart,
+              icon: const Icon(Icons.shopping_cart),
+            )
           ],
         ),
         Container(
@@ -94,7 +99,8 @@ class ProductTile extends StatelessWidget {
             ),
             onRatingUpdate: (rating) {
               productServices.rateProduct(
-                  context: context, product: product, rating: rating);
+                  context: context, product: widget.product, rating: rating);
+              setState(() {});
             },
           ),
         ),
@@ -104,9 +110,9 @@ class ProductTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(right: 10.0),
+                padding: const EdgeInsets.only(right: 10.0),
                 child: Text(
-                  "₹ ${product.price.toString()}",
+                  "₹ ${widget.product.price.toString()}",
                   style: const TextStyle(fontWeight: FontWeight.w500),
                 ),
               )
