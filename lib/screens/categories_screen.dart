@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:food_ordering_app/admin/services/admin_services.dart';
 import 'package:food_ordering_app/constants/Global_variables.dart';
 import 'package:food_ordering_app/models/shopDetail.dart';
@@ -56,13 +57,22 @@ class _CatgoriesScreenState extends State<CatgoriesScreen> {
         body: Container(
           height: MediaQuery.of(context).size.height,
           child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
               itemCount: tags!.length,
               itemBuilder: (context, index) {
-                return CategoryTile(
-                  category: tags![index],
-                  onTap: () {
-                    navigateToCategoryProductScreen(context, tags![index]);
-                  },
+                return AnimationConfiguration.staggeredList(
+                  position: index,
+                  child: SlideAnimation(
+                    child: FadeInAnimation(
+                      child: CategoryTile(
+                        category: tags![index],
+                        onTap: () {
+                          navigateToCategoryProductScreen(
+                              context, tags![index]);
+                        },
+                      ),
+                    ),
+                  ),
                 );
               }),
         ));

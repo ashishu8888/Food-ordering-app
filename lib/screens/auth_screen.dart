@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_ordering_app/constants/Global_variables.dart';
 import 'package:food_ordering_app/service/auth_service.dart';
 import 'package:food_ordering_app/widgets/custom_button.dart';
-import 'package:food_ordering_app/widgets/custom_textfield.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 enum Auth {
   signin,
@@ -53,7 +53,6 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: GlobalVariables.greyBackgroundCOlor,
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -62,17 +61,28 @@ class _AuthScreenState extends State<AuthScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Welcome',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w500,
+                Center(
+                  child: Text(
+                    'Welcome',
+                    style: GoogleFonts.poppins(
+                        color: Colors.black,
+                        fontSize: 40,
+                        fontWeight: FontWeight.w500),
                   ),
                 ),
+                Center(
+                  child: Image.network(
+                    'https://thumbs.gfycat.com/AcidicUnfoldedGoldenretriever-size_restricted.gif',
+                    height: 240,
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
                 ListTile(
-                  tileColor: _auth == Auth.signup
-                      ? GlobalVariables.backgroundColor
-                      : GlobalVariables.greyBackgroundCOlor,
+                  // tileColor: _auth == Auth.signup
+                  //   ? GlobalVariables.backgroundColor
+                  // : GlobalVariables.backgroundColor,
                   leading: Radio(
                     activeColor: GlobalVariables.secondaryColor,
                     value: Auth.signup,
@@ -83,38 +93,71 @@ class _AuthScreenState extends State<AuthScreen> {
                       });
                     },
                   ),
-                  title: const Text(
+                  title: Text(
                     'create account',
-                    style: TextStyle(
+                    style: GoogleFonts.nunito(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
                 if (_auth == Auth.signup)
                   Container(
-                    padding: EdgeInsets.all(8),
-                    color: GlobalVariables.backgroundColor,
+                    padding: const EdgeInsets.all(10),
+                    // color: GlobalVariables.backgroundColor,
                     child: Form(
                       key: _signUpFormKey,
                       child: Column(
                         children: [
-                          CustomTextField(
-                            controller: _nameController,
-                            hintText: 'Full Name',
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey.withOpacity(0.3),
+                                borderRadius: BorderRadius.circular(12)),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: TextField(
+                                controller: _nameController,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'name',
+                                ),
+                              ),
+                            ),
                           ),
                           const SizedBox(
                             height: 10,
                           ),
-                          CustomTextField(
-                            controller: _emailController,
-                            hintText: 'Email',
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey.withOpacity(0.3),
+                                borderRadius: BorderRadius.circular(12)),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: TextField(
+                                controller: _emailController,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'test@gmail.com',
+                                ),
+                              ),
+                            ),
                           ),
                           const SizedBox(
                             height: 10,
                           ),
-                          CustomTextField(
-                            controller: _passwordController,
-                            hintText: 'Password',
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey.withOpacity(0.3),
+                                borderRadius: BorderRadius.circular(12)),
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: TextField(
+                                controller: _passwordController,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'password',
+                                ),
+                              ),
+                            ),
                           ),
                           const SizedBox(
                             height: 10,
@@ -132,9 +175,9 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                   ),
                 ListTile(
-                  tileColor: _auth == Auth.signin
-                      ? GlobalVariables.backgroundColor
-                      : GlobalVariables.greyBackgroundCOlor,
+                  // tileColor: _auth == Auth.signin
+                  //   ? GlobalVariables.backgroundColor
+                  // : GlobalVariables.backgroundColor,
                   leading: Radio(
                     activeColor: GlobalVariables.secondaryColor,
                     value: Auth.signin,
@@ -145,16 +188,16 @@ class _AuthScreenState extends State<AuthScreen> {
                       });
                     },
                   ),
-                  title: const Text(
+                  title: Text(
                     'login account',
-                    style: TextStyle(
+                    style: GoogleFonts.nunito(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
                 if (_auth == Auth.signin)
                   Container(
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(10),
                     color: GlobalVariables.backgroundColor,
                     child: Column(
                       children: [
@@ -162,16 +205,39 @@ class _AuthScreenState extends State<AuthScreen> {
                           key: _signinFormKey,
                           child: Column(
                             children: [
-                              CustomTextField(
-                                controller: _emailController,
-                                hintText: 'Email',
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.grey.withOpacity(0.3),
+                                    borderRadius: BorderRadius.circular(12)),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: TextField(
+                                      controller: _emailController,
+                                      decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'test@gmail.com',
+                                      )),
+                                ),
                               ),
                               const SizedBox(
                                 height: 10,
                               ),
-                              CustomTextField(
-                                controller: _passwordController,
-                                hintText: 'Password',
+                              Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      borderRadius: BorderRadius.circular(12)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 8.0),
+                                    child: TextField(
+                                      controller: _passwordController,
+                                      decoration: const InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: 'password',
+                                      ),
+                                    ),
+                                  )),
+                              const SizedBox(
+                                height: 10,
                               ),
                               CustomButton(
                                 text: 'Sign In',

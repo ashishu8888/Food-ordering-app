@@ -3,6 +3,7 @@ import 'package:food_ordering_app/constants/Global_variables.dart';
 import 'package:badges/badges.dart';
 import 'package:food_ordering_app/providers/user_provider.dart';
 import 'package:food_ordering_app/screens/account_screen.dart';
+import 'package:food_ordering_app/screens/cart_screen.dart';
 import 'package:food_ordering_app/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -21,9 +22,7 @@ class _BottomBarState extends State<BottomBar> {
   List<Widget> pages = [
     HomeScreen(),
     AccountScreen(),
-    const Center(
-      child: Text('cart page'),
-    ),
+    const CartScreen(),
   ];
 
   void updatePage(int page) {

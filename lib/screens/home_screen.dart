@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:food_ordering_app/admin/services/admin_services.dart';
 import 'package:food_ordering_app/constants/Global_variables.dart';
 import 'package:food_ordering_app/models/shopDetail.dart';
@@ -107,20 +108,26 @@ class _HomeScreenState extends State<HomeScreen> {
                 physics: const BouncingScrollPhysics(),
                 itemCount: shops!.length,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: ShopTile(
-                      ShopImageUrl: shops![index].imageUrl,
-                      shopName: shops![index].shopName,
-                      avgPrice: shops![index].avgPrice,
-                      tags: shops![index].tags,
-                      onTap: () {
-                        Provider.of<ShopProvider>(context, listen: false)
-                            .setShopFromModel(shops![index]);
-                        Navigator.of(context)
-                            .pushNamed(CatgoriesScreen.routeName);
-                      },
-                    ),
+                  return AnimationConfiguration.staggeredList(
+                    position: index,
+                    child: SlideAnimation(
+                        child: FadeInAnimation(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 8),
+                        child: ShopTile(
+                          ShopImageUrl: shops![index].imageUrl,
+                          shopName: shops![index].shopName,
+                          avgPrice: shops![index].avgPrice,
+                          tags: shops![index].tags,
+                          onTap: () {
+                            Provider.of<ShopProvider>(context, listen: false)
+                                .setShopFromModel(shops![index]);
+                            Navigator.of(context)
+                                .pushNamed(CatgoriesScreen.routeName);
+                          },
+                        ),
+                      ),
+                    )),
                   );
                 },
               ),

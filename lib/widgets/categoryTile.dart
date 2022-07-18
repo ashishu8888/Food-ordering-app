@@ -19,7 +19,6 @@ class _CategoryTileState extends State<CategoryTile> {
 
   UserServices homeServices = UserServices();
 
-  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     fetchCategoryProduct();
@@ -48,8 +47,11 @@ class _CategoryTileState extends State<CategoryTile> {
               Positioned.fill(
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
-                  child: productList == null || productList!.isEmpty
-                      ? const Text('not available')
+                  child: productList == null || productList!.length == 0
+                      ? Image.network(
+                          'https://cdn.dribbble.com/users/856748/screenshots/3378756/media/2567526420085dc9c835c2cd8a52bffc.gif',
+                          fit: BoxFit.contain,
+                        )
                       : Image.network(
                           productList![0].images[0],
                           fit: BoxFit.cover,
@@ -57,19 +59,31 @@ class _CategoryTileState extends State<CategoryTile> {
                 ),
               ),
               Positioned(
-                bottom: 0,
-                left: 0,
                 right: 0,
+                left: 0,
+                bottom: 0,
                 child: Container(
                   height: 120,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      widget.category,
+                      style: TextStyle(color: Colors.white, fontSize: 25),
+                    ),
+                  ),
                   decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20),
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20)),
                       gradient: LinearGradient(
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
                           colors: [
-                        Colors.black.withOpacity(0.7),
-                        Colors.transparent
-                      ])),
+                            Colors.black.withOpacity(0.7),
+                            Colors.transparent
+                          ])),
                 ),
               )
             ],
