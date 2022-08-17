@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:food_ordering_app/constants/Global_variables.dart';
+import 'package:food_ordering_app/models/order.dart';
 import 'package:food_ordering_app/models/product.dart';
 import 'package:food_ordering_app/models/shopDetail.dart';
 import 'package:food_ordering_app/providers/shop_provider.dart';
@@ -210,5 +211,36 @@ class AdminServices {
     } catch (e) {
       showSnackBar(context, e.toString());
     }
+  }
+
+  Future<List<Order>> fetchAllOrders(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    List<Order> orderList = [];
+    try {
+      http.Response res =
+          await http.get(Uri.parse('$uri/admin/get-orders'), headers: {
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': userProvider.user.token,
+      });
+
+      httpErrorHandle(
+        response: res,
+        context: context,
+        onSuccess: () {
+          for (int i = 0; i < jsonDecode(res.body).length; i++) {
+            orderList.add(
+              Order.fromJson(
+                jsonEncode(
+                  jsonDecode(res.body)[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+    } catch (e) {
+      showSnackBar(context, e.toString());
+    }
+    return orderList;
   }
 }

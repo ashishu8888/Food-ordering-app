@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:food_ordering_app/models/product.dart';
 
 class Order {

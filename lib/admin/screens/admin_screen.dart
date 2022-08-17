@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_ordering_app/admin/screens/order_status_screen.dart';
 import 'package:food_ordering_app/admin/screens/post_screen.dart';
 import 'package:food_ordering_app/constants/Global_variables.dart';
 
@@ -16,7 +17,7 @@ class _AdminScreenState extends State<AdminScreen> {
 
   List<Widget> pages = [
     const PostScreen(),
-    const Center(child: Text('Orders'))
+    const OrderStatusScreen(),
   ];
 
   void updatePage(int page) {
