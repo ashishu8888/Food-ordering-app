@@ -18,6 +18,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
 
+  int currentStep = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,7 +80,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             const Text(
               'View order details',
               style: TextStyle(
@@ -98,12 +100,139 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   color: Colors.black12,
                 ),
               ),
-              child: Column(children: [
-                Text('Order Date: ${DateFormat().format(
-                  DateTime.fromMillisecondsSinceEpoch(widget.order.orderedAt),
-                )}'),
-              ]),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Order Date:        ${DateFormat().format(
+                    DateTime.fromMillisecondsSinceEpoch(widget.order.orderedAt),
+                  )}'),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('orderId :              ${widget.order.id}'),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('Total amount :    ₹ ${widget.order.totalPrice}'),
+                ],
+              ),
             ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Text(
+              'View order details',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.black12,
+                ),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  for (int i = 0; i < widget.order.products.length; i++)
+                    Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Image.network(
+                            widget.order.products[i].images[0],
+                            height: 120,
+                            width: 120,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Expanded(
+                            child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.order.products[i].name,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'x ${widget.order.quantity[i]}',
+                            ),
+                          ],
+                        ))
+                      ],
+                    )
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Text(
+              'Tracking',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.black12,
+                ),
+              ),
+              child: Stepper(
+                elevation: 10,
+                currentStep: currentStep,
+                physics: BouncingScrollPhysics(),
+                controlsBuilder: (context, detail) {
+                  return const SizedBox();
+                },
+                steps: [
+                  Step(
+                    title: Text('Pending order request'),
+                    content: Text(
+                        'Your order request has been sent to seller and is yet to be confirmed.'),
+                    isActive: currentStep >= 0,
+                    state: currentStep >= 0
+                        ? StepState.complete
+                        : StepState.indexed,
+                  ),
+                  Step(
+                    title: Text('order request has been accepted'),
+                    content: Text('seller has accepted your order.'),
+                    isActive: currentStep >= 1,
+                    state: currentStep >= 1
+                        ? StepState.complete
+                        : StepState.indexed,
+                  ),
+                  Step(
+                    title: Text('in progress'),
+                    content: Text('your order is being prepared'),
+                    isActive: currentStep >= 2,
+                    state: currentStep >= 2
+                        ? StepState.complete
+                        : StepState.indexed,
+                  ),
+                  Step(
+                    title: Text('Ready'),
+                    content: Text('your order is ready to take'),
+                    isActive: currentStep >= 3,
+                    state: currentStep >= 3
+                        ? StepState.complete
+                        : StepState.indexed,
+                  ),
+                ],
+              ),
+            )
           ]),
         ),
       ),

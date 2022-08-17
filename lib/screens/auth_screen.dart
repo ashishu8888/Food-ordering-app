@@ -26,6 +26,7 @@ class _AuthScreenState extends State<AuthScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
 
+  @override
   void dispose() {
     super.dispose();
     _emailController.dispose();
@@ -73,10 +74,10 @@ class _AuthScreenState extends State<AuthScreen> {
                 Center(
                   child: Image.network(
                     'https://thumbs.gfycat.com/AcidicUnfoldedGoldenretriever-size_restricted.gif',
-                    height: 240,
+                    height: 200,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 ListTile(

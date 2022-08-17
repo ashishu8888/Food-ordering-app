@@ -101,14 +101,14 @@ class _PostScreenState extends State<PostScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      // Expanded(
-                      //   child: SizedBox(
-                      //     height: 140,
-                      //     child: SingleProduct(
-                      //       image: productData.images[0],
-                      //     ),
-                      //   ),
-                      // ),
+                      Expanded(
+                        child: SizedBox(
+                          height: 140,
+                          child: SingleProduct(
+                            order: productData,
+                          ),
+                        ),
+                      ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
