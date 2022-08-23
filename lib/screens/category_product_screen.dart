@@ -51,10 +51,11 @@ class _ProductScreenState extends State<CategoryProductScreen> {
           : GridView.builder(
               itemCount: productList!.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                //maxCrossAxisExtent: 200,
                 crossAxisCount: 2,
-                childAspectRatio: 4 / 3,
+                childAspectRatio: 2 / 4,
                 crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
+                mainAxisSpacing: 20,
               ),
               itemBuilder: (context, index) =>
                   ProductTile(product: productList![index]),
