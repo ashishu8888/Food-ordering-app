@@ -91,41 +91,47 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
               if (_auth == Auth.signup)
                 Container(
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                   color: GlobalVariables.backgroundColor,
-                  child: Form(
-                    key: _signUpFormKey,
+                  child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        CustomTextField(
-                          controller: _nameController,
-                          hintText: 'Full Name',
+                        Form(
+                          key: _signUpFormKey,
+                          child: Column(
+                            children: [
+                              CustomTextField(
+                                controller: _nameController,
+                                hintText: 'Full Name',
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              CustomTextField(
+                                controller: _emailController,
+                                hintText: 'Email',
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              CustomTextField(
+                                controller: _passwordController,
+                                hintText: 'Password',
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              CustomButton(
+                                text: 'Sign Up',
+                                onTap: () {
+                                  if (_signUpFormKey.currentState!.validate()) {
+                                    signUpUser();
+                                  }
+                                },
+                              )
+                            ],
+                          ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        CustomTextField(
-                          controller: _emailController,
-                          hintText: 'Email',
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        CustomTextField(
-                          controller: _passwordController,
-                          hintText: 'Password',
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        CustomButton(
-                          text: 'Sign Up',
-                          onTap: () {
-                            if (_signUpFormKey.currentState!.validate()) {
-                              signUpUser();
-                            }
-                          },
-                        )
                       ],
                     ),
                   ),
