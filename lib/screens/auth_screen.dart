@@ -77,6 +77,53 @@ class _AuthScreenState extends State<AuthScreen> {
                     height: 200,
                   ),
                 ),
+ <<<<<<< editing_form
+              ),
+              if (_auth == Auth.signup)
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  color: GlobalVariables.backgroundColor,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Form(
+                          key: _signUpFormKey,
+                          child: Column(
+                            children: [
+                              CustomTextField(
+                                controller: _nameController,
+                                hintText: 'Full Name',
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              CustomTextField(
+                                controller: _emailController,
+                                hintText: 'Email',
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              CustomTextField(
+                                controller: _passwordController,
+                                hintText: 'Password',
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              CustomButton(
+                                text: 'Sign Up',
+                                onTap: () {
+                                  if (_signUpFormKey.currentState!.validate()) {
+                                    signUpUser();
+                                  }
+                                },
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+ =======
                 const SizedBox(
                   height: 30,
                 ),
@@ -98,6 +145,7 @@ class _AuthScreenState extends State<AuthScreen> {
                     'create account',
                     style: GoogleFonts.nunito(
                       fontWeight: FontWeight.bold,
+ >>>>>>> master
                     ),
                   ),
                 ),
