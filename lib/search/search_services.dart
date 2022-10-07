@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:food_ordering_app/constants/Global_variables.dart';
 import 'package:food_ordering_app/constants/error_handling.dart';
@@ -16,6 +15,7 @@ class SearchServices {
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Product> productList = [];
+
     try {
       http.Response res = await http
           .get(Uri.parse('$uri/api/products/search/$searchQuery'), headers: {

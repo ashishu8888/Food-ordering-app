@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const uri = 'http://192.168.107.169:3000';
+const uri = 'https://food-ordering-apis.herokuapp.com';
 
 class GlobalVariables {
   // COLORS
